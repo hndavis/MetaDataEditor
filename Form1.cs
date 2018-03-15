@@ -16,5 +16,13 @@ namespace MetaDataEditor
 		{
 			InitializeComponent();
 		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			string path = @"C:\Users\u6035303\git\api\api\snapshot\components\snapshotmeta\service\xml\tree_parts\d_adcdls.xml";
+			var metaData = new MetaData(path);
+			metaData.Load();
+			gridControl1.BindingContext =(metaData);
+		}
 	}
 }
