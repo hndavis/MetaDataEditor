@@ -9,7 +9,7 @@ namespace MetaDataEditor
 {
 	public class MetaData
 	{
-		HashSet<string> Names = new HashSet<string>();
+        Dictionary<string, string> DataBase = new Dictionary<string, string>();
 		private List<Dictionary<string, string>> vals = new List<Dictionary<string, string>>();
 		private List<Dictionary<string, string>> valsByColumn = new List<Dictionary<string, string>>();
 		private Dictionary<string, string> dataBaseAttributes = new Dictionary<string, string>();
@@ -30,7 +30,7 @@ namespace MetaDataEditor
 			foreach (XmlAttribute dbAttrib in dataBase.Attributes)
 			{
 				dataBaseAttributes[dbAttrib.Name] = dbAttrib.Value;
-				Names.Add(dbAttrib.Name);
+				DataBase.Add(dbAttrib.Name, dbAttrib.Value);
 			}
 			foreach (XmlNode pCat in dataBase.ChildNodes)
 			{
@@ -40,7 +40,7 @@ namespace MetaDataEditor
 					foreach (XmlAttribute catAttrib in pCat.Attributes)
 					{
 						catAttributes[catAttrib.Name] = catAttrib.Value;
-						Names.Add(catAttrib.Name);
+						//Names.Add(catAttrib.Name);
 					}
 				}
 
@@ -62,7 +62,7 @@ namespace MetaDataEditor
 							foreach (XmlAttribute att in item.Attributes)
 							{
 								itemRow[att.Name] = att.Value;
-								Names.Add(att.Name);
+								//Names.Add(att.Name);
 							}
 						}
 
@@ -70,8 +70,9 @@ namespace MetaDataEditor
 						{
 							foreach (XmlNode inParam in item.ChildNodes)
 							{
-								itemRow[inParam.Name] = inParam.Name;
-								Names.Add(inParam.Name);
+
+                                itemRow[inParam.Attributes[0].Value] = inParam.FirstChild.Value;
+								//Names.Add(inParam.Name);
 							}
 						}
 
@@ -82,11 +83,11 @@ namespace MetaDataEditor
 				}
 			}
 
-			foreach(var pair in vals.)
-			foreach (string ColName in Names)
-			{
+			//foreach(var pair in vals.)
+			//foreach (string ColName in Names)
+			//{
 				
-			}
+			//}
 
 			return false;
 		}
@@ -101,6 +102,6 @@ namespace MetaDataEditor
 			return false;
 		}
 
-		public 
+		
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +20,12 @@ namespace MetaDataEditor
 
 		private void button1_Click(object sender, EventArgs e)
 		{
-			string path = @"C:\Users\u6035303\git\api\api\snapshot\components\snapshotmeta\service\xml\tree_parts\d_adcdls.xml";
-			var metaData = new MetaData(path);
+			//string path = @"C:\Users\u6035303\git\api\api\snapshot\components\snapshotmeta\service\xml\tree_parts\d_adcdls.xml";
+            var workDir = Directory.GetCurrentDirectory();
+            var path = workDir + "..\\..\\..\\Data\\d_adcdls.xml";
+            var metaData = new MetaData(path);
 			metaData.Load();
-			gridControl1.BindingContext =(metaData);
+			//gridControl1.BindingContext =(metaData);
 		}
 	}
 }
