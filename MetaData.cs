@@ -10,7 +10,7 @@ namespace MetaDataEditor
 	public class MetaData
 	{
         Dictionary<string, string> DataBase = new Dictionary<string, string>();
-		private List<Dictionary<string, string>> vals = new List<Dictionary<string, string>>();
+		public List<Dictionary<string, string>> vals = new List<Dictionary<string, string>>();
 		private List<Dictionary<string, string>> valsByColumn = new List<Dictionary<string, string>>();
 		private Dictionary<string, string> dataBaseAttributes = new Dictionary<string, string>();
 		private Dictionary<string, string> catAttributes;
@@ -70,8 +70,8 @@ namespace MetaDataEditor
 						{
 							foreach (XmlNode inParam in item.ChildNodes)
 							{
-
-                                itemRow[inParam.Attributes[0].Value] = inParam.FirstChild.Value;
+								if ( inParam.ChildNodes.Count > 0 )
+									itemRow[inParam.Attributes[0].Value] = inParam.FirstChild.Value;
 								//Names.Add(inParam.Name);
 							}
 						}
