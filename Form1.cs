@@ -25,7 +25,12 @@ namespace MetaDataEditor
             var path = workDir + "..\\..\\..\\Data\\d_adcdls.xml";
             var metaData = new MetaData(path);
 			metaData.Load();
-			gridControl1.BindingContext =(metaData.vals);
+			//gridControl1.BindingContext =(metaData.vals);
+		}
+
+		private void gridControl1_Click(object sender, EventArgs e)
+		{
+
 		}
 	}
 }
