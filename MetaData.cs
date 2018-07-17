@@ -32,46 +32,97 @@ namespace MetaDataEditor
 				{
 
 					foreach (var subCat in category.SubCategories)
-
-					foreach (var item in subCat.Value.Items)
 					{
-						var row = new MetaDataGridRow();
-
-						//PropertyInfo dbPropertyInfo = row.GetType().GetProperty("DatabaseID");
-						foreach (var param in item.Value.InternalParams)
+						foreach (var item in subCat.Value.Items)
 						{
+							var row = new MetaDataGridRow();
 
-							switch (param.Key)
+							//PropertyInfo dbPropertyInfo = row.GetType().GetProperty("DatabaseID");
+							foreach (var param in item.Value.InternalParams)
 							{
-								case "id":
-									SetValue(row, "ID", item.Value.InternalParams[param.Key]);
-									break;
 
-								case "n":
-									SetValue(row, "Name", item.Value.InternalParams[param.Key]);
-									break;
-
-								case "l":
-									SetValue(row, "Label", item.Value.InternalParams[param.Key]);
-									break;
-
-								case "d":
-									SetValue(row, "Description", item.Value.InternalParams[param.Key]);
-									break;
-
-								default:
+								switch (param.Key)   // switch is used here in case translation from abrev needed
 								{
-									PropertyInfo propertyInfo = row.GetType().GetProperty(param.Key);
-									if (propertyInfo != null)
-										propertyInfo.SetValue(row, item.Value.InternalParams[param.Key]);
+									
+									default:
+									{
+										PropertyInfo propertyInfo = row.GetType().GetProperty(param.Key);
+										if (propertyInfo != null)
+											propertyInfo.SetValue(row, item.Value.InternalParams[param.Key]);
 
+									}
+										break;
 								}
-									break;
+
 							}
 
-						}
+							foreach (var param in item.Value.Attribs)
+							{
 
-						denormalizedMetaData.Add(row);
+								switch (param.Key)
+								{
+									case "id":
+										SetValue(row, "ID", item.Value.Attribs[param.Key]);
+										break;
+
+									case "n":
+										SetValue(row, "Name", item.Value.Attribs[param.Key]);
+										break;
+
+									case "l":
+										SetValue(row, "Label", item.Value.Attribs[param.Key]);
+										break;
+
+									case "d":
+										SetValue(row, "Description", item.Value.Attribs[param.Key]);
+										break;
+
+									case "pc":
+										SetValue(row, "ParameterClass", item.Value.Attribs[param.Key]);
+										break;
+
+									case "cc":
+										SetValue(row, "ColumnClass", item.Value.Attribs[param.Key]);
+										break;
+
+									case "vu":
+										SetValue(row, "ValueUnit", item.Value.Attribs[param.Key]);
+										break;
+
+									case "dt":
+										SetValue(row, "DataType", item.Value.Attribs[param.Key]);
+										break;
+
+									case "app":
+										SetValue(row, "App", item.Value.Attribs[param.Key]);
+										break;
+
+									case "universe":
+										SetValue(row, "Universe", item.Value.Attribs[param.Key]);
+										break;
+
+									case "isGrid":
+										SetValue(row, "isGrid", item.Value.Attribs[param.Key]);
+										break;
+
+									default:
+									{
+										PropertyInfo propertyInfo = row.GetType().GetProperty(param.Key);
+										if (propertyInfo != null)
+											propertyInfo.SetValue(row, item.Value.Attribs[param.Key]);
+
+									}
+										break;
+								}
+
+							}
+
+							row.DatabaseID = database.Value.Attributes["id"];
+							row.CategoryId = category.Attributes["id"];
+							row.SubCategoryId = subCat.Value.Attributes["id"];
+
+							denormalizedMetaData.Add(row);
+						}
 					}
 
 				}
@@ -119,24 +170,31 @@ namespace MetaDataEditor
 						foreach (XmlAttribute catAttrib in pCat.Attributes)
 						{
 							catAttributes[catAttrib.Name] = catAttrib.Value;
-							//Names.Add(catAttrib.Name);
 						}
 					}
+
 					cat.Attributes = catAttributes;
 					DataBases[databaseNode.Name].Categories.Add(cat);
 					foreach (XmlNode subCatNode in pCat.ChildNodes)
 					{
 						var subCat = new SubCategory();
 						var subCatAttribs = new Dictionary<string, string>();
+						if (subCatNode.Attributes == null)
+							break;
+
 						foreach (XmlAttribute att in subCatNode.Attributes)
 						{
 							subCatAttribs[att.Name] = att.Value;
 
 						}
+
 						subCat.Attributes = subCatAttribs;
 
 						foreach (XmlNode item in subCatNode.ChildNodes)
 						{
+							if (item.NodeType == XmlNodeType.Comment)
+								continue;
+
 							var itemRow = new Item();
 							var itemAttributes = new Dictionary<string, string>();
 
@@ -144,10 +202,13 @@ namespace MetaDataEditor
 							{
 								foreach (XmlAttribute att in item.Attributes)
 								{
+									if (att.Name == "n")
+										itemRow.Name = att.Value;
+
 									itemAttributes[att.Name] = att.Value;
-									//Names.Add(att.Name);
 								}
 							}
+
 							itemRow.Attribs = itemAttributes;
 							var internalParams = new Dictionary<string, string>();
 							if (item.HasChildNodes)
@@ -155,7 +216,7 @@ namespace MetaDataEditor
 								foreach (XmlNode inParam in item.ChildNodes)
 								{
 									if (inParam.Attributes == null)
-										break;
+										continue;
 
 									if (inParam.ChildNodes.Count > 0)
 										internalParams["in" + "_" + inParam.Attributes[0].Value] = inParam.FirstChild.Value;
@@ -163,9 +224,14 @@ namespace MetaDataEditor
 								}
 							}
 
+							if (itemRow.Attribs == null || itemRow.Attribs.Count == 0)
+								continue;
+
 							itemRow.InternalParams = internalParams;
+							subCat.Items.Add(itemRow.Attribs["id"], itemRow);
 						}
 
+						cat.SubCategories.Add(subCatAttribs.First().Value, subCat);
 					}
 
 				}

@@ -32,11 +32,18 @@ namespace MetaDataEditor
 		public string App { get; set; }
 		public string pcc { get; set; }
 
+		public string Universe { get; set; }
+
 		public string in_id { get; set;}
+		public string in_fn { get; set; }
+
 
 		public string in_table { get; set; }
+		public string in_column { get; set; }
+		public string in_idt { get; set; }
+		public string in_dealJoinType { get; set; }
 
-		public string in_CurrAvailility { get; set; }
+		public string in_CurrAvailability { get; set; }
 		public string in_tableHostCurr { get; set; }
 		public string in_viewName { get; set; }
 
