@@ -5,6 +5,9 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
+using System.Xml.Linq;
+using System.Xml.XPath;
+using DevExpress.XtraRichEdit.Import.OpenXml;
 
 namespace MetaDataEditor
 {
@@ -15,12 +18,27 @@ namespace MetaDataEditor
 		private List<Dictionary<string, string>> valsByColumn = new List<Dictionary<string, string>>();
 		private Dictionary<string, string> dataBaseAttributes = new Dictionary<string, string>();
 		private Dictionary<string, string> catAttributes;
+		private XmlDocument doc;
+	
+
 		String Path{ get; set; }
 
 		public MetaData(string path)
 		{
 			Path = path;
+			doc = new XmlDocument();
+		}
 
+
+		/// <summary>
+		/// this constructor loads back an a set of denormolized Rows
+		/// </summary>
+		/// <param name="path"></param>
+		/// <param name="rows"></param>
+		public MetaData(string path, List<MetaDataGridRow> rows)
+		{
+			Path = path;
+			doc = new XmlDocument();
 		}
 
 		public List<MetaDataGridRow> Denormalize()
@@ -30,7 +48,6 @@ namespace MetaDataEditor
 			{
 				foreach (var category in database.Value.Categories)
 				{
-
 					foreach (var subCat in category.SubCategories)
 					{
 						foreach (var item in subCat.Value.Items)
@@ -40,20 +57,16 @@ namespace MetaDataEditor
 							//PropertyInfo dbPropertyInfo = row.GetType().GetProperty("DatabaseID");
 							foreach (var param in item.Value.InternalParams)
 							{
-
 								switch (param.Key)   // switch is used here in case translation from abrev needed
 								{
-									
 									default:
 									{
 										PropertyInfo propertyInfo = row.GetType().GetProperty(param.Key);
 										if (propertyInfo != null)
 											propertyInfo.SetValue(row, item.Value.InternalParams[param.Key]);
-
 									}
 										break;
 								}
-
 							}
 
 							foreach (var param in item.Value.Attribs)
@@ -239,6 +252,42 @@ namespace MetaDataEditor
 
 
 			return false;
+		}
+
+		public void Update(List<MetaDataGridRow> changedRows)
+		{
+
+			// for every row find correct node based key ( database, category, category, id )
+
+			XPathNodeIterator NodeIter;
+			String strExpression;
+
+			//var mainDoc = new XElement(Path);
+			//var mainDoc =  new XElement("Students.xml");
+			var mainDoc = new XElement("d_adcdls_part.xml");
+			
+
+			//var nav = doc.CreateNavigator();
+			foreach (var changedRow in changedRows)
+			{
+				var databases = from database in mainDoc.Descendants()
+								select new
+								{
+									DatabaseName = database.Attribute("id"),
+									Name = database.Attribute("n"),
+									Description = database.Attribute("d")
+
+								};
+
+				foreach (var database in databases)
+				{
+					Console.WriteLine("Database ={0} Name={1} Desc={2}", database.DatabaseName, database.Name, database.Description);
+				}
+				//	strExpression = string.Format("/dsdas/c");
+				//	var node = nav.Evaluate(strExpression);
+			}
+			
+			
 		}
 
 
