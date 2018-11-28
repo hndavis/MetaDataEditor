@@ -135,6 +135,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\d_adcdls.xml" />
+    <Content Include="d_adcdls_part.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
