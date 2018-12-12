@@ -248,3 +248,4 @@ C:\Users\u6035303\git\MetaDataEditor\obj\Debug\MetaDataEditor.exe
 C:\Users\u6035303\git\MetaDataEditor\obj\Debug\MetaDataEditor.pdb
 C:\Users\u6035303\git\MetaDataEditor\obj\Debug\MetaDataEditor.csprojAssemblyReference.cache
 C:\Users\u6035303\git\MetaDataEditor\bin\Debug\d_adcdls_part.xml
+C:\Users\u6035303\git\MetaDataEditor\obj\Debug\MetaDataEditor.frmSort.resources

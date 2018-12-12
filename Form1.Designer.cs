@@ -28,6 +28,7 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandGalleryItemGroup spreadsheetCommandGalleryItemGroup1 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandGalleryItemGroup();
 			DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandGalleryItem spreadsheetCommandGalleryItem1 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandGalleryItem();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
@@ -244,39 +245,51 @@
 			DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandGalleryItem spreadsheetCommandGalleryItem173 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandGalleryItem();
 			DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandGalleryItem spreadsheetCommandGalleryItem174 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandGalleryItem();
 			DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandGalleryItem spreadsheetCommandGalleryItem175 = new DevExpress.XtraSpreadsheet.UI.SpreadsheetCommandGalleryItem();
-			DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
-			this.commandBarGalleryDropDown2 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown1 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown3 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown4 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown5 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown6 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown7 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown8 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown9 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown10 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown11 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown12 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown13 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown14 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown15 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown16 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown17 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown18 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown19 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown20 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown21 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown22 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown23 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
-			this.commandBarGalleryDropDown24 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown();
+			this.commandBarGalleryDropDown2 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown1 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown3 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown4 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown5 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown6 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown7 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown8 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown9 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown10 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown11 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown12 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown13 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown14 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown15 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown16 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown17 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown18 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown19 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown20 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown21 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown22 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown23 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
+			this.commandBarGalleryDropDown24 = new DevExpress.XtraBars.Commands.CommandBarGalleryDropDown(this.components);
 			this.Load = new System.Windows.Forms.Button();
-			this.gridControl2 = new DevExpress.XtraGrid.GridControl();
-			this.metaRowValueBindingSource = new System.Windows.Forms.BindingSource();
-			this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
-			this.metaDataBindingSource = new System.Windows.Forms.BindingSource();
 			this.button1 = new System.Windows.Forms.Button();
-			this.metaDataBindingSource1 = new System.Windows.Forms.BindingSource();
-			this.metaDataBindingSource2 = new System.Windows.Forms.BindingSource();
+			this.dataGridView1 = new System.Windows.Forms.DataGridView();
+			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.insertToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.metaRowValueBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.metaDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
+			this.metaDataBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+			this.metaDataBindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+			this.editToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+			this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown3)).BeginInit();
@@ -301,9 +314,9 @@
 			((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown22)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown23)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown24)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.gridControl2)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+			this.menuStrip1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.metaRowValueBindingSource)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.metaDataBindingSource)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.metaDataBindingSource1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.metaDataBindingSource2)).BeginInit();
@@ -2040,39 +2053,6 @@
 			this.Load.UseVisualStyleBackColor = true;
 			this.Load.Click += new System.EventHandler(this.Load_Click);
 			// 
-			// gridControl2
-			// 
-			this.gridControl2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.gridControl2.DataSource = this.metaRowValueBindingSource;
-			gridLevelNode1.RelationName = "Level1";
-			this.gridControl2.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] {
-            gridLevelNode1});
-			this.gridControl2.Location = new System.Drawing.Point(0, 1);
-			this.gridControl2.MainView = this.gridView2;
-			this.gridControl2.Name = "gridControl2";
-			this.gridControl2.Size = new System.Drawing.Size(1459, 444);
-			this.gridControl2.TabIndex = 2;
-			this.gridControl2.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
-            this.gridView2});
-			// 
-			// metaRowValueBindingSource
-			// 
-			this.metaRowValueBindingSource.DataSource = typeof(MetaDataEditor.MetaRowValue);
-			// 
-			// gridView2
-			// 
-			this.gridView2.AppearancePrint.OddRow.BackColor = System.Drawing.Color.Silver;
-			this.gridView2.AppearancePrint.OddRow.Options.UseBackColor = true;
-			this.gridView2.GridControl = this.gridControl2;
-			this.gridView2.Name = "gridView2";
-			// 
-			// metaDataBindingSource
-			// 
-			this.metaDataBindingSource.DataSource = typeof(MetaDataEditor.MetaData);
-			this.metaDataBindingSource.CurrentChanged += new System.EventHandler(this.metaDataBindingSource_CurrentChanged);
-			// 
 			// button1
 			// 
 			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -2084,6 +2064,113 @@
 			this.button1.UseVisualStyleBackColor = true;
 			this.button1.Click += new System.EventHandler(this.button1_Click_2);
 			// 
+			// dataGridView1
+			// 
+			this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+			this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.dataGridView1.Location = new System.Drawing.Point(0, 28);
+			this.dataGridView1.Name = "dataGridView1";
+			this.dataGridView1.RowTemplate.Height = 24;
+			this.dataGridView1.Size = new System.Drawing.Size(1459, 449);
+			this.dataGridView1.TabIndex = 4;
+			// 
+			// menuStrip1
+			// 
+			this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+			this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
+            this.editToolStripMenuItem1});
+			this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+			this.menuStrip1.Name = "menuStrip1";
+			this.menuStrip1.Size = new System.Drawing.Size(1459, 28);
+			this.menuStrip1.TabIndex = 5;
+			this.menuStrip1.Text = "menuStrip1";
+			// 
+			// fileToolStripMenuItem
+			// 
+			this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.loadToolStripMenuItem,
+            this.saveAsToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.exitToolStripMenuItem});
+			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+			this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
+			this.fileToolStripMenuItem.Text = "&File";
+			// 
+			// loadToolStripMenuItem
+			// 
+			this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
+			this.loadToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.loadToolStripMenuItem.Text = "&Load";
+			this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+			// 
+			// saveAsToolStripMenuItem
+			// 
+			this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
+			this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.saveAsToolStripMenuItem.Text = "Save &As";
+			// 
+			// saveToolStripMenuItem
+			// 
+			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+			this.saveToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.saveToolStripMenuItem.Text = "&Save";
+			// 
+			// exitToolStripMenuItem
+			// 
+			this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+			this.exitToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.exitToolStripMenuItem.Text = "E&xit";
+			this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+			// 
+			// editToolStripMenuItem
+			// 
+			this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyToolStripMenuItem,
+            this.pasteToolStripMenuItem,
+            this.insertToolStripMenuItem,
+            this.deleteToolStripMenuItem});
+			this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+			this.editToolStripMenuItem.Size = new System.Drawing.Size(50, 24);
+			this.editToolStripMenuItem.Text = "&Row";
+			this.editToolStripMenuItem.Click += new System.EventHandler(this.editToolStripMenuItem_Click);
+			// 
+			// copyToolStripMenuItem
+			// 
+			this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+			this.copyToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+			this.copyToolStripMenuItem.Text = "&Copy";
+			// 
+			// pasteToolStripMenuItem
+			// 
+			this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
+			this.pasteToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+			this.pasteToolStripMenuItem.Text = "&Paste";
+			this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
+			// 
+			// insertToolStripMenuItem
+			// 
+			this.insertToolStripMenuItem.Name = "insertToolStripMenuItem";
+			this.insertToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+			this.insertToolStripMenuItem.Text = "&New";
+			this.insertToolStripMenuItem.Click += new System.EventHandler(this.insertToolStripMenuItem_Click);
+			// 
+			// deleteToolStripMenuItem
+			// 
+			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
+			this.deleteToolStripMenuItem.Text = "&Delete";
+			// 
+			// metaRowValueBindingSource
+			// 
+			this.metaRowValueBindingSource.DataSource = typeof(MetaDataEditor.MetaRowValue);
+			// 
+			// metaDataBindingSource
+			// 
+			this.metaDataBindingSource.DataSource = typeof(MetaDataEditor.MetaData);
+			this.metaDataBindingSource.CurrentChanged += new System.EventHandler(this.metaDataBindingSource_CurrentChanged);
+			// 
 			// metaDataBindingSource1
 			// 
 			this.metaDataBindingSource1.DataSource = typeof(MetaDataEditor.MetaData);
@@ -2092,12 +2179,36 @@
 			// 
 			this.metaDataBindingSource2.DataSource = typeof(MetaDataEditor.MetaData);
 			// 
+			// editToolStripMenuItem1
+			// 
+			this.editToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sortToolStripMenuItem,
+            this.filterToolStripMenuItem});
+			this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
+			this.editToolStripMenuItem1.Size = new System.Drawing.Size(47, 24);
+			this.editToolStripMenuItem1.Text = "&Edit";
+			// 
+			// sortToolStripMenuItem
+			// 
+			this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
+			this.sortToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.sortToolStripMenuItem.Text = "&Sort";
+			this.sortToolStripMenuItem.Click += new System.EventHandler(this.sortToolStripMenuItem_Click);
+			// 
+			// filterToolStripMenuItem
+			// 
+			this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
+			this.filterToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.filterToolStripMenuItem.Text = "&Filter";
+			// 
 			// Form1
 			// 
 			this.ClientSize = new System.Drawing.Size(1459, 477);
+			this.Controls.Add(this.dataGridView1);
 			this.Controls.Add(this.button1);
-			this.Controls.Add(this.gridControl2);
 			this.Controls.Add(this.Load);
+			this.Controls.Add(this.menuStrip1);
+			this.MainMenuStrip = this.menuStrip1;
 			this.Name = "Form1";
 			((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown1)).EndInit();
@@ -2123,13 +2234,15 @@
 			((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown22)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown23)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.commandBarGalleryDropDown24)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.gridControl2)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+			this.menuStrip1.ResumeLayout(false);
+			this.menuStrip1.PerformLayout();
 			((System.ComponentModel.ISupportInitialize)(this.metaRowValueBindingSource)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.metaDataBindingSource)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.metaDataBindingSource1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.metaDataBindingSource2)).EndInit();
 			this.ResumeLayout(false);
+			this.PerformLayout();
 
 		}
 
@@ -2163,13 +2276,26 @@
 		private DevExpress.XtraBars.Commands.CommandBarGalleryDropDown commandBarGalleryDropDown22;
 		private DevExpress.XtraBars.Commands.CommandBarGalleryDropDown commandBarGalleryDropDown23;
 		private DevExpress.XtraBars.Commands.CommandBarGalleryDropDown commandBarGalleryDropDown24;
-		private DevExpress.XtraGrid.GridControl gridControl2;
 		private System.Windows.Forms.BindingSource metaDataBindingSource;
-		private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
 		private System.Windows.Forms.Button button1;
 		private System.Windows.Forms.BindingSource metaDataBindingSource1;
 		private System.Windows.Forms.BindingSource metaDataBindingSource2;
 		private System.Windows.Forms.BindingSource metaRowValueBindingSource;
+		private System.Windows.Forms.DataGridView dataGridView1;
+		private System.Windows.Forms.MenuStrip menuStrip1;
+		private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem loadToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem pasteToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem insertToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem1;
+		private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
 	}
 }
 
