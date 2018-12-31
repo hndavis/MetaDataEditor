@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="MetaMeta"
+    targetNamespace="http://tempuri.org/MetaMeta.xsd"
+    elementFormDefault="qualified"
+    xmlns="http://tempuri.org/MetaMeta.xsd"
+    xmlns:mstns="http://tempuri.org/MetaMeta.xsd"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+	<xs:element name="in">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="k">
+						<xs:simpleType >
+							<xs:restriction base="xs:string" >
+								<xs:enumeration value="fn" />
+								<xs:enumeration value="id" />
+								<xs:enumeration value="table" />
+								<xs:enumeration value="column" />
+								<xs:enumeration value="k" />
+								<xs:enumeration value="dealJoinType" />
+							</xs:restriction>
+						</xs:simpleType >
+					</xs:attribute>
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

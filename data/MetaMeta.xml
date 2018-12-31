@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<d name="Database">
+	<a attribname="id"></a>
+	<a attribname="n"></a>
+	<a attribname="xmlns:in"></a>
+	<a attribname="xmlns:out"></a>
+	<a attribname="xmlns"></a>
+	<cat >
+		<a attribname="id"></a>
+		<a attribname="n"></a>
+		<a attribname="m"></a>
+		<s_cat>
+			<a attribname="id"></a>
+			<a attribname="n"></a>
+			<a attribname="m"></a>
+			<item>
+				<a attribname ="id"/>
+				<a attribname ="n"/>
+				<a attribname ="l"/>
+				<a attribname ="vu"/>
+				<a attribname ="pc"/>
+				<a attribname ="cc"/>
+				<a attribname ="dt"/>
+				<a attribname ="s"/>
+				<a attribname ="isScreen"/>
+				<a attribname ="universe"/>
+				<a attribname="app"/>
+				<o attribname="id"/>
+				<in attribname="k" >
+					<kval name="fn"/>
+					<kval name="id" />
+					<kval name="table"/>
+					<kval name="column"/>
+					<kval name="idt"/>
+					<kval name="dealJoinType"/>
+					<kval name="iscurrconv"/>
+					<kval name="ExchCurrencyTable"/>
+					<kval name="CurrConversionDateColumn"/>
+					<kval name="CurrConversionDateTable" />
+					<kval name="ExchCurrencyColumn" />
+					<kval name="viewname" />
+				</in>
+					
+			</item>
+		</s_cat>
+
+	</cat>
+</d>

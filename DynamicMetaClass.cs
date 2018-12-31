@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace MetaDataEditor
 {
 	// https://stackoverflow.com/questions/3862226/how-to-dynamically-create-a-class-in-c
-	public class DynamicClass : DynamicObject
+	public class DynamicMetaClass : DynamicObject
 	{
 		private Dictionary<string, KeyValuePair<Type, object>> _fields;
 
-		public DynamicClass(List<Field> fields)
+		public DynamicMetaClass(List<DynaField> fields)
 		{
 			_fields = new Dictionary<string, KeyValuePair<Type, object>>();
 			fields.ForEach(x => _fields.Add(x.FieldName,
@@ -41,9 +41,9 @@ namespace MetaDataEditor
 		}
 	}
 
-	public class Field
+	public class DynaField
 	{
-		public Field(string name, Type type)
+		public DynaField(string name, Type type)
 		{
 			this.FieldName = name;
 			this.FieldType = type;
@@ -58,15 +58,15 @@ namespace MetaDataEditor
 	{
 		public TestExample()
 		{
-			var fields = new List<Field>()
+			var fields = new List<DynaField>()
 			{
-				new Field("EmployeeID", typeof(int)),
-				new Field("EmployeeName", typeof(string)),
-				new Field("Designation", typeof(string))
+				new DynaField("EmployeeID", typeof(int)),
+				new DynaField("EmployeeName", typeof(string)),
+				new DynaField("Designation", typeof(string))
 			};
 
 
-			dynamic obj = new DynamicClass(fields);
+			dynamic obj = new DynamicMetaClass(fields);
 
 			//set
 			obj.EmployeeID = 123456;
