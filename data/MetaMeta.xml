@@ -2,9 +2,11 @@
 <d name="Database">
 	<a attribname="id"></a>
 	<a attribname="n"></a>
-	<a attribname="xmlns:in"></a>
-	<a attribname="xmlns:out"></a>
+	<a attribname="d"></a>
+	<a attribname="xmlns__in"></a>
+	<a attribname="xmlns__out"></a>
 	<a attribname="xmlns"></a>
+	<a attribname="xmlns__xi"></a>
 	<cat >
 		<a attribname="id"></a>
 		<a attribname="n"></a>
@@ -13,19 +15,30 @@
 			<a attribname="id"></a>
 			<a attribname="n"></a>
 			<a attribname="m"></a>
-			<item>
+			<i>
 				<a attribname ="id"/>
 				<a attribname ="n"/>
+				<a attribname="d"/>
+				<a attribname="domainEnum"/>
 				<a attribname ="l"/>
 				<a attribname ="vu"/>
 				<a attribname ="pc"/>
 				<a attribname ="cc"/>
 				<a attribname ="dt"/>
 				<a attribname ="s"/>
+				<a attribname ="ss"/>
+				<a attribname ="ssecondary"/>
 				<a attribname ="isScreen"/>
 				<a attribname ="universe"/>
 				<a attribname="app"/>
+				<a attribname="lc"/>
+				<a attribname="lt"/>
+				<a attribname="isGrid"/>
+				<a attribname="pcc"/>
+				<a attribnam="i" />
+
 				<o attribname="id"/>
+
 				<in attribname="k" >
 					<kval name="fn"/>
 					<kval name="id" />
@@ -35,14 +48,32 @@
 					<kval name="dealJoinType"/>
 					<kval name="iscurrconv"/>
 					<kval name="ExchCurrencyTable"/>
+					<kval name="dealRefDateCol" />  <!-- old -->
 					<kval name="CurrConversionDateColumn"/>
 					<kval name="CurrConversionDateTable" />
 					<kval name="ExchCurrencyColumn" />
+					<kval name="columnForRetrieval" />
 					<kval name="viewname" />
+					<kval name="content" />
+					<kval name="columnids" />
+					<kval name="columnnames" />
 				</in>
 					
-			</item>
+			</i>
 		</s_cat>
 
 	</cat>
+	<layout>
+		<col id="d_n" header="DBName" visible="true" width="120"></col>
+		<col id="d_id" header="DBId" visible="false" width="120"></col>
+		<col id="d_d" header="DbDescription" visible="false" width="120"></col>
+		<col id="d_xmlns__in" header="DataBase" visible="false" width="120"></col>
+		<col id="d_xmlns__out" header="DataBase" visible="false" width="120"></col>
+		<col id="d_xmlns" header="DataBase" visible="false" width="120"></col>
+		<col id="d_xmlns__xi" header="DataBase" visible="false" width="120"></col>
+		<col id="scat_n" header="SCategory" visible="true" width="120"></col>
+
+	</layout>
 </d>
+	
+

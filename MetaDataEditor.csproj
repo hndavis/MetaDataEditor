@@ -99,13 +99,17 @@
     <Compile Include="frmSort.Designer.cs">
       <DependentUpon>frmSort.cs</DependentUpon>
     </Compile>
+    <Compile Include="LayoutColumn.cs" />
+    <Compile Include="MetaCreator.cs" />
     <Compile Include="MetaData.cs" />
     <Compile Include="MetaDataGridRow.cs" />
+    <Compile Include="MetaDataWriter.cs" />
     <Compile Include="MetaMetaData.cs" />
     <Compile Include="MetaRowValues.cs" />
     <Compile Include="MetaTypeBuilder.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="util\ToDataTable.cs" />
     <Compile Include="XMLValidator.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -127,10 +131,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <None Include=".gitignore" />
-    <None Include="MetaMeta.xsd">
-      <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Properties\DataSources\MetaData.datasource" />
     <None Include="Properties\DataSources\MetaRowValue.datasource" />
     <None Include="Properties\Settings.settings">
@@ -159,13 +159,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Data\d_adcdls.xml" />
+    <Content Include="Data\d_adcdls.xml">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="d_adcdls_part.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\MetaMeta.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

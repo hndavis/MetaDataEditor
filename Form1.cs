@@ -10,17 +10,20 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Dynamic;
 using System.Reflection;
+using DevExpress.XtraRichEdit.Commands;
 
 
 namespace MetaDataEditor
 {
 	public partial class Form1 : Form
 	{
-		dynamic databaseItems = new ExpandoObject();
+		
 
 		public List<MetaDataGridRow> metaDataRows;
 
 		private MetaMetaData metaMetaData;
+		private DataTable metaDT;
+		private Boolean showAll = true;
 		public Form1()
 		{
 			InitializeComponent();
@@ -33,7 +36,7 @@ namespace MetaDataEditor
 			var path = workDir + "..\\..\\..\\Data\\d_adcdls.xml";
 			var metaData = new MetaData(path);
 			metaData.Load();
-			//gridControl1.BindingContext =(metaData.vals);
+			var dt = metaData.ToDataTable(metaData.ToDataTable(metaDT));
 		}
 
 		private void gridControl1_Click(object sender, EventArgs e)
@@ -63,7 +66,6 @@ namespace MetaDataEditor
 
 		private void button1_Click_2(object sender, EventArgs e)
 		{
-			databaseItems.Id = "1234234";
 
 		}
 
@@ -75,11 +77,18 @@ namespace MetaDataEditor
 		private void loadToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			var workDir = Directory.GetCurrentDirectory();
+			var metaPath = workDir + "..\\..\\..\\Data\\MetaMeta.xml";
+			metaMetaData = new MetaMetaData(metaPath);
+
+			metaMetaData.Load();
+			metaDT = metaMetaData.ToDataTableStructure(metaMetaData.Cols);
+
+
 			var path = workDir + "..\\..\\..\\Data\\d_adcdls.xml";
 			var metaData = new MetaData(path);
 			metaData.Load();
-			metaDataRows = metaData.Denormalize();
-			dataGridView1.DataSource = metaDataRows;
+			var dt = metaData.ToDataTable(metaDT);
+			dataGridView1.DataSource = dt;
 		}
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -143,18 +152,14 @@ namespace MetaDataEditor
 			public int Compare(object x, object y)
 			{
 
-				MetaDataGridRow row1 = (MetaDataGridRow)x;
-				MetaDataGridRow row2 = (MetaDataGridRow)y;
+				DataGridViewRow row1 = x as DataGridViewRow;
+				DataGridViewRow row2 = y as DataGridViewRow;
 
 
-					return 0;
 				int compRes = 0;
 				foreach (frmSort.SortItem si in sortItems)
 				{
-					//int compareResult = System.String.Compare(
-					//	row1.
-					//	dataGridViewRow1.Cells[1].Value.ToString(),
-					//	dataGridViewRow2.Cells[1].Value.ToString());
+					compRes = row1.Cells[si.ord].Value.ToString().CompareTo(row2.Cells[si.ord].Value.ToString());
 
 				}
 
@@ -176,30 +181,41 @@ namespace MetaDataEditor
 			sortForm.ShowDialog();
 			if (DialogResult.Yes == sortForm.DialogResult)
 			{
-				var metaDataRows = (List<MetaDataGridRow>)dataGridView1.DataSource;
-				dataGridView1.DataSource = null;
-				//RowComparer rc = new RowComparer(SortOrder.Ascending, sortForm.SortedFields);
-				switch (sortForm.SortedFields.Count)
+				DataTable dtSort = (DataTable)dataGridView1.DataSource;
+				RowComparer rowComparer = new RowComparer(SortOrder.Ascending, sortForm.SortedFields);
+				StringBuilder sortBuilder = new StringBuilder();
+				foreach (frmSort.SortItem sortField in sortForm.SortedFields)
 				{
-					case 1:
-					{
-						metaDataRows.Sort( (x,y) =>
-						{
-							Type m = metaDataRows[0].GetType();
-							PropertyInfo p1Info = m.GetProperty(sortForm.SortedFields[0].val);
-							var gMethod = p1Info.GetGetMethod();
-							string x1 = (string) gMethod.Invoke(x, null);
-							string y1 = (string) gMethod.Invoke(y, null);
-							return string.Compare(x1, y1);
-						});
-					}
-						break;
+					if (sortBuilder.Length > 0)
+						sortBuilder.Append(" , ");
+					sortBuilder.Append(sortField.val);
 				}
 
-				//sortForm.SortedFields
-				//metaDataRows.Sort(rc);
-				dataGridView1.DataSource = metaDataRows;
-				//dataGridView1.Sort( new RowComparer(SortOrder.Ascending, sortForm));
+				dtSort.DefaultView.Sort = sortBuilder.ToString();
+				//var metaDataRows = (DataTable)dataGridView1.DataSource;
+				//dataGridView1.DataSource = null;
+				//RowComparer rc = new RowComparer(SortOrder.Ascending, sortForm.SortedFields);
+				//switch (sortForm.SortedFields.Count)
+				//{
+				//	case 1:
+				//	{
+				//		metaDataRows.Sort( (x,y) =>
+				//		{
+				//			Type m = metaDataRows[0].GetType();
+				//			PropertyInfo p1Info = m.GetProperty(sortForm.SortedFields[0].val);
+				//			var gMethod = p1Info.GetGetMethod();
+				//			string x1 = (string) gMethod.Invoke(x, null);
+				//			string y1 = (string) gMethod.Invoke(y, null);
+				//			return string.Compare(x1, y1);
+				//		});
+				//	}
+				//		break;
+				//}
+
+				////sortForm.SortedFields
+				////metaDataRows.Sort(rc);
+				//dataGridView1.DataSource = metaDataRows;
+				////dataGridView1.Sort( new RowComparer(SortOrder.Ascending, sortForm));
 			}
 		}
 
@@ -213,7 +229,10 @@ namespace MetaDataEditor
 			var workDir = Directory.GetCurrentDirectory();
 			var path = workDir + "..\\..\\..\\Data\\MetaMeta.xml";
 			metaMetaData = new MetaMetaData(path);
-			object rowType = metaMetaData.RowType;
+
+			metaMetaData.Load();
+			metaDT = metaMetaData.ToDataTableStructure(metaMetaData.Cols);
+
 		}
 
 		private void filterToolStripMenuItem_Click(object sender, EventArgs e)
@@ -227,12 +246,15 @@ namespace MetaDataEditor
 			}
 
 			filtForm.Populate(colHeaders);
-			filtForm.MetaDataGridRows = metaDataRows;
+			filtForm.MetaDataGridView = dataGridView1;
 			filtForm.ShowDialog();
 			if (DialogResult.OK == filtForm.DialogResult)
 			{
-				dataGridView1.DataSource = DoFilter(metaDataRows, filtForm.FilterFields[0].name,
-					(string) filtForm.FilterFields[0].val);
+				//dataGridView1.DataSource = DoFilter(metaDataRows, filtForm.FilterFields[0].name,
+				//	(string) filtForm.FilterFields[0].val);
+
+				DoFilter(dataGridView1, filtForm.FilterFields);
+
 			}
 		}
 
@@ -252,6 +274,68 @@ namespace MetaDataEditor
 			}
 
 			return filterRows;
+		}
+
+
+		void DoFilter(DataGridView allRows, List<frmFilter.FilterItem> fltrItems)
+		{
+			if (allRows.CurrentCell!= null )
+				allRows.BeginEdit(false);
+			List<MetaDataGridRow> filterRows = new List<MetaDataGridRow>();
+			//var  rowT  allRow
+			allRows.CurrentCell = null;
+			foreach (DataGridViewRow row in allRows.Rows)
+			{
+				foreach (frmFilter.FilterItem fltrItem in fltrItems)
+				{
+					row.Visible = true;
+					var comp1 = row.Cells[fltrItem.name].Value;
+					if (comp1 != null)
+					{
+						if (!comp1.ToString().Contains((string)fltrItem.val))
+						{
+							row.Visible = false;
+							break;
+						}
+					}
+				}
+
+			}
+
+			allRows.EndEdit();
+		}
+		private void showAllColsToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+
+			foreach (DataGridViewColumn dgvcol in dataGridView1.Columns)
+				{
+
+					if (metaMetaData.LayoutColumns.ContainsKey(dgvcol.Name) && !showAll)
+					{
+						dgvcol.Visible = metaMetaData.LayoutColumns[dgvcol.Name].visible;
+						dgvcol.Width = metaMetaData.LayoutColumns[dgvcol.Name].width;
+
+					}
+					else
+					{
+						dgvcol.Visible = true;
+					}
+
+
+				}
+
+			if (showAll)
+				showAll = false;
+			else
+				showAll = true;
+
+
+		}
+
+		private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			MetaDataWriter mdw = new MetaDataWriter(@"c:\temp\outtestmeta.xml", metaMetaData, (DataTable)dataGridView1.DataSource);
+			mdw.Write();
 		}
 	}
 }

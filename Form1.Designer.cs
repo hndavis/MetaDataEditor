@@ -287,6 +287,7 @@
 			this.editToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
 			this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.filterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.showAllColsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.metaRowValueBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.metaDataBindingSource = new System.Windows.Forms.BindingSource(this.components);
 			this.metaDataBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
@@ -2118,6 +2119,7 @@
 			this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
 			this.saveToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
 			this.saveToolStripMenuItem.Text = "&Save";
+			this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
 			// 
 			// exitToolStripMenuItem
 			// 
@@ -2148,34 +2150,35 @@
 			// copyToolStripMenuItem
 			// 
 			this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
-			this.copyToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.copyToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
 			this.copyToolStripMenuItem.Text = "&Copy";
 			// 
 			// pasteToolStripMenuItem
 			// 
 			this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
-			this.pasteToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.pasteToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
 			this.pasteToolStripMenuItem.Text = "&Paste";
 			this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
 			// 
 			// insertToolStripMenuItem
 			// 
 			this.insertToolStripMenuItem.Name = "insertToolStripMenuItem";
-			this.insertToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.insertToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
 			this.insertToolStripMenuItem.Text = "&New";
 			this.insertToolStripMenuItem.Click += new System.EventHandler(this.insertToolStripMenuItem_Click);
 			// 
 			// deleteToolStripMenuItem
 			// 
 			this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.deleteToolStripMenuItem.Size = new System.Drawing.Size(128, 26);
 			this.deleteToolStripMenuItem.Text = "&Delete";
 			// 
 			// editToolStripMenuItem1
 			// 
 			this.editToolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.sortToolStripMenuItem,
-            this.filterToolStripMenuItem});
+            this.filterToolStripMenuItem,
+            this.showAllColsToolStripMenuItem});
 			this.editToolStripMenuItem1.Name = "editToolStripMenuItem1";
 			this.editToolStripMenuItem1.Size = new System.Drawing.Size(47, 24);
 			this.editToolStripMenuItem1.Text = "&Edit";
@@ -2184,16 +2187,23 @@
 			// sortToolStripMenuItem
 			// 
 			this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
-			this.sortToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.sortToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
 			this.sortToolStripMenuItem.Text = "&Sort";
 			this.sortToolStripMenuItem.Click += new System.EventHandler(this.sortToolStripMenuItem_Click);
 			// 
 			// filterToolStripMenuItem
 			// 
 			this.filterToolStripMenuItem.Name = "filterToolStripMenuItem";
-			this.filterToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.filterToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
 			this.filterToolStripMenuItem.Text = "&Filter";
 			this.filterToolStripMenuItem.Click += new System.EventHandler(this.filterToolStripMenuItem_Click);
+			// 
+			// showAllColsToolStripMenuItem
+			// 
+			this.showAllColsToolStripMenuItem.Name = "showAllColsToolStripMenuItem";
+			this.showAllColsToolStripMenuItem.Size = new System.Drawing.Size(174, 26);
+			this.showAllColsToolStripMenuItem.Text = "Show &All Cols";
+			this.showAllColsToolStripMenuItem.Click += new System.EventHandler(this.showAllColsToolStripMenuItem_Click);
 			// 
 			// metaRowValueBindingSource
 			// 
@@ -2308,6 +2318,7 @@
 		private System.Windows.Forms.ToolStripMenuItem sortToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem loadMetaToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem showAllColsToolStripMenuItem;
 	}
 }
 

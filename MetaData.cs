@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
-using DevExpress.XtraRichEdit.Import.OpenXml;
+using System.Data;
+using System.Windows.Forms;
 
 namespace MetaDataEditor
 {
@@ -74,47 +75,47 @@ namespace MetaDataEditor
 
 								switch (param.Key)
 								{
-									case "id":
+									case "i_id":
 										SetValue(row, "ID", item.Value.Attribs[param.Key]);
 										break;
 
-									case "n":
+									case "i_n":
 										SetValue(row, "Name", item.Value.Attribs[param.Key]);
 										break;
 
-									case "l":
+									case "i_l":
 										SetValue(row, "Label", item.Value.Attribs[param.Key]);
 										break;
 
-									case "d":
+									case "i_d":
 										SetValue(row, "Description", item.Value.Attribs[param.Key]);
 										break;
 
-									case "pc":
+									case "i_pc":
 										SetValue(row, "ParameterClass", item.Value.Attribs[param.Key]);
 										break;
 
-									case "cc":
+									case "i_cc":
 										SetValue(row, "ColumnClass", item.Value.Attribs[param.Key]);
 										break;
 
-									case "vu":
+									case "i_vu":
 										SetValue(row, "ValueUnit", item.Value.Attribs[param.Key]);
 										break;
 
-									case "dt":
+									case "i_dt":
 										SetValue(row, "DataType", item.Value.Attribs[param.Key]);
 										break;
 
-									case "app":
+									case "i_app":
 										SetValue(row, "App", item.Value.Attribs[param.Key]);
 										break;
 
-									case "universe":
+									case "i_universe":
 										SetValue(row, "Universe", item.Value.Attribs[param.Key]);
 										break;
 
-									case "isGrid":
+									case "i_isGrid":
 										SetValue(row, "isGrid", item.Value.Attribs[param.Key]);
 										break;
 
@@ -130,9 +131,9 @@ namespace MetaDataEditor
 
 							}
 
-							row.DatabaseID = database.Value.Attributes["id"];
-							row.CategoryId = category.Attributes["id"];
-							row.SubCategoryId = subCat.Value.Attributes["id"];
+							row.DatabaseID = database.Value.Attributes["d_id"];
+							row.CategoryId = category.Attributes["c_id"];
+							row.SubCategoryId = subCat.Value.Attributes["c_id"];
 
 							denormalizedMetaData.Add(row);
 						}
@@ -144,6 +145,67 @@ namespace MetaDataEditor
 			return denormalizedMetaData;
 		}
 
+		public DataTable ToDataTable( DataTable EmptyDataTable)
+		{
+
+			var dt = EmptyDataTable.Clone();
+			foreach (var database in DataBases)
+			{
+				foreach (var category in database.Value.Categories)
+				{
+					foreach (var subCat in category.SubCategories)
+					{
+						foreach (var item in subCat.Value.Items)
+						{
+							var row = dt.NewRow();
+							
+							try
+							{
+								foreach (var param in item.Value.Attribs)
+								{
+									row[param.Key] = item.Value.Attribs[param.Key];
+
+								}
+
+								foreach (var iparam in item.Value.InternalParams)
+								{
+									row[iparam.Key] = item.Value.InternalParams[iparam.Key];
+
+								}
+
+								foreach (var dbAttribute in database.Value.Attributes)
+								{
+									row[dbAttribute.Key] = dbAttribute.Value;
+								}
+
+								foreach (var catAttribute  in category.Attributes)
+								{
+									row[catAttribute.Key.Replace("c_", "cat_")] = catAttribute.Value;
+
+								}
+								foreach (var scat in subCat.Value.Attributes)
+								{
+										row[scat.Key.Replace("c_","s_cat_")] = scat.Value;
+
+								}
+
+								dt.Rows.Add(row);
+							}
+							catch (Exception ex)
+							{
+								 MessageBox.Show("On Item:"+ item.Key +" \n" + ex.Message, "Check Definitions", MessageBoxButtons.OK);
+								return null;
+							}
+
+						}
+					}
+
+				}
+			}
+
+			return dt;
+		}
+
 		void SetValue(object o, string name, string value)
 		{
 			PropertyInfo propertyInfo = o.GetType().GetProperty(name);
@@ -153,7 +215,7 @@ namespace MetaDataEditor
 		}
 
 
-		public bool Load()
+		public bool Load(bool prefix = true)
 		{
 			XmlDocument doc = new XmlDocument();
 			doc.Load(Path);
@@ -164,7 +226,7 @@ namespace MetaDataEditor
 				dataBaseAttributes = new Dictionary<string, string>();
 				foreach (XmlAttribute dbAttrib in databaseNode.Attributes)
 				{
-					dataBaseAttributes[dbAttrib.Name] = dbAttrib.Value;
+					dataBaseAttributes[databaseNode.Name + "_" + dbAttrib.Name.Replace(":","__")] = dbAttrib.Value;
 				}
 
 				DataBases[databaseNode.Name] = new DataBase
@@ -182,7 +244,7 @@ namespace MetaDataEditor
 					{
 						foreach (XmlAttribute catAttrib in pCat.Attributes)
 						{
-							catAttributes[catAttrib.Name] = catAttrib.Value;
+							catAttributes[pCat.Name+"_"+catAttrib.Name] = catAttrib.Value;
 						}
 					}
 
@@ -197,7 +259,7 @@ namespace MetaDataEditor
 
 						foreach (XmlAttribute att in subCatNode.Attributes)
 						{
-							subCatAttribs[att.Name] = att.Value;
+							subCatAttribs[subCatNode.Name+"_" +att.Name] = att.Value;
 
 						}
 
@@ -218,7 +280,7 @@ namespace MetaDataEditor
 									if (att.Name == "n")
 										itemRow.Name = att.Value;
 
-									itemAttributes[att.Name] = att.Value;
+									itemAttributes[item.Name+"_" + att.Name] = att.Value;
 								}
 							}
 
@@ -232,7 +294,7 @@ namespace MetaDataEditor
 										continue;
 
 									if (inParam.ChildNodes.Count > 0)
-										internalParams["in" + "_" + inParam.Attributes[0].Value] = inParam.FirstChild.Value;
+										internalParams[inParam.Name.Replace(":sp", "") + "_" + inParam.Attributes[0].Value] = inParam.FirstChild.Value;
 
 								}
 							}
@@ -241,7 +303,7 @@ namespace MetaDataEditor
 								continue;
 
 							itemRow.InternalParams = internalParams;
-							subCat.Items.Add(itemRow.Attribs["id"], itemRow);
+							subCat.Items.Add(itemRow.Attribs["i_id"], itemRow);
 						}
 
 						cat.SubCategories.Add(subCatAttribs.First().Value, subCat);

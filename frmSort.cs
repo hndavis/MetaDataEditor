@@ -14,8 +14,8 @@ namespace MetaDataEditor
 {
 	public partial class frmSort : Form
 	{
-		private List<SortItem> availibleFields;
-		private List<SortItem> sortedFields;
+		private readonly List<SortItem> availibleFields;
+		private readonly List<SortItem> sortedFields;
 
 		public List<SortItem> SortedFields {get { return sortedFields;}
 }
