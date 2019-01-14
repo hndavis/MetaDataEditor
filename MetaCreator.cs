@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Reflection;
 using System.Reflection.Emit;
-using DevExpress.Charts.Native;
+
 
 namespace MetaDataEditor
 {

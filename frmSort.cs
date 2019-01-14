@@ -7,8 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DevExpress.Utils.Extensions;
-using DevExpress.XtraRichEdit.UI;
+
 
 namespace MetaDataEditor
 {
