@@ -1,79 +1,71 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <d name="Database">
-	<a attribname="id"></a>
-	<a attribname="n"></a>
-	<a attribname="d"></a>
-	<a attribname="xmlns__in"></a>
-	<a attribname="xmlns__out"></a>
-	<a attribname="xmlns"></a>
-	<a attribname="xmlns__xi"></a>
+	<a attribname="id"  header="Database ID" visible="true" width="120"></a>
+	<a attribname="n"  header="DBName" visible="true" width="120" ></a>
+	<a attribname="d" header="DbDescription" visible="true" width="120"></a>
+	<a attribname="xmlns__in" header="xmlns:in" visible="false" width="120"></a>
+	<a attribname="xmlns__out" header="xmlns:in" visible="false" width="120"></a>
+	<a attribname="xmlns"  visible="false" width="120">></a>
+	<a attribname="xmlns__xi"  visible="false" width="120">></a>
 	<cat >
-		<a attribname="id"></a>
-		<a attribname="n"></a>
-		<a attribname="m"></a>
+		<a attribname="id" header="Category Id" visible="true" width="120"></a>
+		<a attribname="n" header="CatName" visible="true" width="120"/>
+		<a attribname="m" visible="false" width="120"/>
 		<s_cat>
-			<a attribname="id"></a>
-			<a attribname="n"></a>
-			<a attribname="m"></a>
+			<a attribname="id"  header="Subcategory Id" visible="true" width="120"/>
+			<a attribname="n" header="SubCatName" visible="true" width="120"/>
+			<a attribname="m"  visible="false" width="120"/>
 			<i>
-				<a attribname ="id"/>
-				<a attribname ="n"/>
-				<a attribname="d"/>
-				<a attribname="domainEnum"/>
-				<a attribname ="l"/>
-				<a attribname ="vu"/>
-				<a attribname ="pc"/>
-				<a attribname ="cc"/>
-				<a attribname ="dt"/>
-				<a attribname ="s"/>
-				<a attribname ="ss"/>
-				<a attribname ="ssecondary"/>
-				<a attribname ="isScreen"/>
-				<a attribname ="universe"/>
-				<a attribname="app"/>
-				<a attribname="lc"/>
-				<a attribname="lt"/>
-				<a attribname="isGrid"/>
-				<a attribname="pcc"/>
-				<a attribnam="i" />
-
-				<o attribname="id"/>
-
-				<in attribname="k" >
-					<kval name="fn"/>
-					<kval name="id" />
-					<kval name="table"/>
-					<kval name="column"/>
-					<kval name="idt"/>
-					<kval name="dealJoinType"/>
-					<kval name="iscurrconv"/>
-					<kval name="ExchCurrencyTable"/>
-					<kval name="dealRefDateCol" />  <!-- old -->
-					<kval name="CurrConversionDateColumn"/>
-					<kval name="CurrConversionDateTable" />
-					<kval name="ExchCurrencyColumn" />
-					<kval name="columnForRetrieval" />
-					<kval name="viewname" />
-					<kval name="content" />
-					<kval name="columnids" />
-					<kval name="columnnames" />
+				<a attribname ="id" header="ID (id)" visible="true" width="120"/>
+				<a attribname ="n" header="Name (n)" visible="true" width="120"/>
+				<a attribname="d" header="Description (d)" visible="true" width="120"/>
+				<a attribname="domainEnum" header="domainEnum" visible="true" width="120"/>
+				<a attribname ="l"  header="Label(l)" visible="true" width="120"/>
+				<a attribname ="vu" header="Value unit(vu)" visible="true" width="120"/>
+				<a attribname ="pc"  header="Parameter class" visible="true" width="120"/>
+				<a attribname ="cc"  header="Column class(cc)" visible="true" width="120"/>
+				<a attribname ="vp"  header="Value precision" visible="true" width="120"/>
+				<a attribname ="vc"  header="Value column" visible="true" width="120"/>
+				<a attribname ="dt" header="Data type" visible="true" width="120"/>
+				<a attribname ="fc" header="Function class" visible="true" width="120"/>
+				<a attribname ="s"  header="Handler Source (s)" visible="true" width="120"/>
+				<a attribname ="ss" header="Screener Source (ss)" visible="true" width="120"/>
+				<a attribname ="ssecondary"  visible="true" width="120"/>
+				<a attribname ="isScreen"  visible="true" width="120"/>
+				<a attribname ="universe"  visible="true" width="120"/>
+				<a attribname="app"  visible="true" width="120"/>
+				<a attribname="lc"  visible="true" width="120"/>
+				<a attribname="lt"  visible="true" width="120"/>
+				<a attribname="isGrid"  visible="true" width="120"/>
+				<a attribname="pcc"  visible="true" width="120"/>
+				<a attribname="i"   visible="true" width="120"/>
+				<in > 
+					<kval name="fn" header="In:fn" visible="true" width="120"/>
+					<kval name="id"  header="In:idt" visible="true" width="120"/>
+					<kval name="table"  header="In:table" visible="true" width="120"/>
+					<kval name="mtable"  header="In:mtable" visible="true" width="120"/>
+					<kval name="column"  header="In:column" visible="true" width="120"/>
+					<kval name="idt"  header="In:idt" visible="true" width="120"/>
+					<kval name="scale" header ="In:Scale" visible="true" width="120"/>
+					<kval name="dealJoinType"  header="In:dealJoinType" visible="true" width="120"/>
+					<kval name="iscurrconv"  header="In:iscurrconv" visible="true" width="120"/>
+					<kval name="ExchCurrencyTable"  header="In:ExchCurrencyTable" visible="true" width="120"/>
+					<kval name="dealRefDateCol"   header="In:dealRefDateCol" visible="true" width="120"/>  <!-- old -->
+					<kval name="CurrConversionDateColumn" header="In:CurrConversionDateColumn" visible="true" width="120"/>
+					<kval name="CurrConversionDateTable"  header="In:CurrConversionDateTable" visible="true" width="120"/>
+					<kval name="ExchCurrencyColumn"   header="In:ExchCurrencyColumn" visible="true" width="120"/>
+					<kval name="columnForRetrieval"  header="In:columnForRetrieval" visible="true" width="120"/>
+					<kval name="viewname"   header="In:viewname" visible="true" width="120"/>
+					<kval name="content"  header="In:content" visible="true" width="120"/>
+					<kval name="columnids"  header="In:columnids" visible="true" width="120"/>
+					<kval name="columnnames"  header="In:columnnames" visible="true" width="120"/>
 				</in>
 					
 			</i>
 		</s_cat>
 
 	</cat>
-	<layout>
-		<col id="d_n" header="DBName" visible="true" width="120"></col>
-		<col id="d_id" header="DBId" visible="false" width="120"></col>
-		<col id="d_d" header="DbDescription" visible="false" width="120"></col>
-		<col id="d_xmlns__in" header="DataBase" visible="false" width="120"></col>
-		<col id="d_xmlns__out" header="DataBase" visible="false" width="120"></col>
-		<col id="d_xmlns" header="DataBase" visible="false" width="120"></col>
-		<col id="d_xmlns__xi" header="DataBase" visible="false" width="120"></col>
-		<col id="scat_n" header="SCategory" visible="true" width="120"></col>
-
-	</layout>
+	
 </d>
 	
 

@@ -1,6 +1,6 @@
 ﻿namespace MetaDataEditor
 {
-	partial class Form1
+	partial class frmEditorFrame
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,7 +28,6 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			
 			this.dataGridView1 = new System.Windows.Forms.DataGridView();
 			this.menuStrip1 = new System.Windows.Forms.MenuStrip();
 			this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,6 +36,7 @@
 			this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.loadMetaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+			this.importFromExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -80,10 +80,12 @@
             this.saveAsToolStripMenuItem,
             this.saveToolStripMenuItem,
             this.exitToolStripMenuItem,
-            this.loadMetaToolStripMenuItem});
+            this.loadMetaToolStripMenuItem,
+            this.importFromExcelToolStripMenuItem});
 			this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
 			this.fileToolStripMenuItem.Size = new System.Drawing.Size(44, 24);
 			this.fileToolStripMenuItem.Text = "&File";
+			this.fileToolStripMenuItem.Click += new System.EventHandler(this.fileToolStripMenuItem_Click);
 			// 
 			// loadToolStripMenuItem
 			// 
@@ -118,6 +120,13 @@
 			this.loadMetaToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
 			this.loadMetaToolStripMenuItem.Text = "Load &Meta";
 			this.loadMetaToolStripMenuItem.Click += new System.EventHandler(this.loadMetaToolStripMenuItem_Click);
+			// 
+			// importFromExcelToolStripMenuItem
+			// 
+			this.importFromExcelToolStripMenuItem.Name = "importFromExcelToolStripMenuItem";
+			this.importFromExcelToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+			this.importFromExcelToolStripMenuItem.Text = "Import From E&xcel";
+			this.importFromExcelToolStripMenuItem.Click += new System.EventHandler(this.importFromExcelToolStripMenuItem_Click);
 			// 
 			// editToolStripMenuItem
 			// 
@@ -189,13 +198,13 @@
 			this.showAllColsToolStripMenuItem.Text = "Show &All Cols";
 			this.showAllColsToolStripMenuItem.Click += new System.EventHandler(this.showAllColsToolStripMenuItem_Click);
 			// 
-			// Form1
+			// frmEditorFrame
 			// 
 			this.ClientSize = new System.Drawing.Size(1459, 477);
 			this.Controls.Add(this.dataGridView1);
 			this.Controls.Add(this.menuStrip1);
 			this.MainMenuStrip = this.menuStrip1;
-			this.Name = "Form1";
+			this.Name = "frmEditorFrame";
 			this.Load += new System.EventHandler(this.Form1_Load_1);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.menuStrip1.ResumeLayout(false);
@@ -225,6 +234,7 @@
 		private System.Windows.Forms.ToolStripMenuItem filterToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem loadMetaToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem showAllColsToolStripMenuItem;
+		private System.Windows.Forms.ToolStripMenuItem importFromExcelToolStripMenuItem;
 	}
 }
 

@@ -43,7 +43,7 @@ namespace MetaDataEditor
 
 		}
 
-		public void Populate(List<string> fields)
+		public void Populate(List<Tuple<string, string, int>> fields)
 		{
 			//foreach (var s in fields)
 			//{
@@ -51,13 +51,13 @@ namespace MetaDataEditor
 			//}
 			for (int i = 0;  i < fields.Count; i++)
 			{
-				var si = new  SortItem() {ord = i, val = fields[i]};
+				var si = new  SortItem() {val = fields[i].Item1, disp = fields[i].Item2, ord = fields[i].Item3};
 				availibleFields.Add(si);
 			}
 
 			lstAvailFlds.DataSource = availibleFields;
-			lstAvailFlds.DisplayMember = "val";
-			lstAvailFlds.ValueMember = "ord";
+			lstAvailFlds.DisplayMember = "disp";
+			lstAvailFlds.ValueMember = "val";
 			lstSortFlds.DataSource = sortedFields;
 
 		}
@@ -83,11 +83,11 @@ namespace MetaDataEditor
 			items.Remove(item);
 			sortItems.Add(item);
 			lstSortFlds.DataSource = sortItems;
-			lstSortFlds.DisplayMember = "val";
-			lstSortFlds.ValueMember = "ord";
+			lstSortFlds.DisplayMember = "disp";
+			lstSortFlds.ValueMember = "val";
 			lstAvailFlds.DataSource = items;
-			lstAvailFlds.DisplayMember = "val";
-			lstAvailFlds.ValueMember = "ord";
+			lstAvailFlds.DisplayMember = "disp";
+			lstAvailFlds.ValueMember = "val";
 			lstAvailFlds.EndUpdate();
 			lstSortFlds.EndUpdate();
 		}
@@ -112,11 +112,11 @@ namespace MetaDataEditor
 			lstAvailFlds.Items.Clear();
 			availibleItems.Insert(pos, sortItem);
 
-			lstSortFlds.DisplayMember = "val";
-			lstSortFlds.ValueMember = "ord";
+			lstSortFlds.DisplayMember = "disp";
+			lstSortFlds.ValueMember = "val";
 			lstAvailFlds.DataSource = availibleItems;
-			lstAvailFlds.DisplayMember = "val";
-			lstAvailFlds.ValueMember = "ord";
+			lstAvailFlds.DisplayMember = "disp";
+			lstAvailFlds.ValueMember = "val";
 			lstAvailFlds.EndUpdate();
 			lstSortFlds.EndUpdate();
 		}
@@ -135,7 +135,8 @@ namespace MetaDataEditor
 		public class SortItem
 		{
 			public String val { get; set; }
-			public int ord { get; set; }
+			public String disp { get; set; }
+			public  int ord { get; set; }
 		}
 
 		private void pbOk_Click(object sender, EventArgs e)

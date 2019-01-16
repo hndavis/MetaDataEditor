@@ -14,34 +14,50 @@ using System.Data;
 
 namespace MetaDataEditor
 {
+
 	public class MetaMetaData
 	{
-		private Dictionary<string, List<string>> dataBaseAttributes = new Dictionary<string, List<string>>();
-		private Dictionary<string, List<string>> catAttributes = new Dictionary<string, List<string>>();
-		private Dictionary<string, List<string>> scatAttributes = new Dictionary<string, List<string>>();
-		private Dictionary<string, List<string>> itemsAttributes = new Dictionary<string, List<string>>();
-		private Dictionary<string, List<string>> itemsInParams = new Dictionary<string, List<string>>();
+		private HashSet<string> dataBaseAttributes;
+		private HashSet<string> catAttributes;
+		private HashSet<string> scatAttributes;
+		private HashSet<string> itemsAttributes;
+		private HashSet<string> itemsInParams ;
+		private Dictionary<string,string> ExcelNametoXmlName;
+		private Dictionary<string, string> XmlNametoExcelName;
 
-		public Dictionary<string, List<string>> DataBaseAttributes
+		public String GetMetaXmlName(string ExcelName)
+		{
+			if (ExcelNametoXmlName.ContainsKey(ExcelName))
+				return ExcelNametoXmlName[ExcelName];
+			return null;
+		}
+
+		public String GetMetaExcelName(string XmlName)
+		{
+			if (XmlNametoExcelName.ContainsKey(XmlName))
+				return XmlNametoExcelName[XmlName];
+			return null;
+		}
+		public HashSet<string> DataBaseAttributes
 		{
 			get { return dataBaseAttributes; }
 		}
 
-		public Dictionary<string, List<string>> CatAttributes
+		public HashSet<string> CatAttributes
 		{
 			get { return catAttributes; }
 		}
 
-		public Dictionary<string, List<string>> ScatAttributes
+		public HashSet<string> ScatAttributes
 		{
 			get { return scatAttributes; }
 		}
 
-		public Dictionary<string, List<string>> ItemsAttributes
+		public HashSet<String> ItemsAttributes
 		{
 			get { return itemsAttributes; }
 		}
-		public Dictionary<string, List<string>> ItemsInParams
+		public HashSet<String> ItemsInParams
 		{
 			get { return itemsInParams; }
 		}
@@ -53,7 +69,7 @@ namespace MetaDataEditor
 
 		private object rowType = null;
 
-		private List<string> cols;
+		private Dictionary<string, Dictionary<string,string>> cols;
 
 		private Dictionary<string, LayoutColumn> layoutColumns;
 
@@ -73,7 +89,7 @@ namespace MetaDataEditor
 			}
 		}
 
-		public List<string> Cols
+		public Dictionary<string, Dictionary<string, string>> Cols
 		{
 			get { return cols; }
 		}
@@ -127,95 +143,138 @@ namespace MetaDataEditor
 			}
 		}
 
-		public void LoadLayout(XmlNode layoutNode)
-		{
-			Dictionary<string, LayoutColumn> columnLayout = new Dictionary<string, LayoutColumn>();
-			foreach (XmlNode colNode in layoutNode.ChildNodes)
-			{
-				var col = new LayoutColumn();
-				col.id = colNode.Attributes["id"].Value;
-				col.header = colNode.Attributes["header"].Value;
-				col.visible = Boolean.Parse(colNode.Attributes["visible"].Value);
-				col.width = Int32.Parse(colNode.Attributes["width"].Value);
-
-				columnLayout.Add(col.id, col);
-			}
-
-			layoutColumns = columnLayout;
-
-		}
 		public void LoadMetaStructure(XmlNode databaseNode)
 		{
-			List<string> attribs = new List<string>();
+			Dictionary<string, Dictionary<string, string>> attribs = new Dictionary<string, Dictionary<string, string>>();
+			var excelNametoXmlName = new Dictionary<string, string>();
+			var loadItemsAttributes = new HashSet<string>();
+			var loadItemsInParams = new HashSet<string>();
+			var loadDataBaseAttributes = new HashSet<string>();
+			var loadCatAttributes = new  HashSet<string>();
+			var loadScatAttributes = new  HashSet<String>();
+			var xmlNametoExcelName = new Dictionary<string, string>();
+
+
 			foreach (XmlNode dbItemNode in databaseNode.ChildNodes)
 			{
-				if (dbItemNode.Name == "layout")
-					LoadLayout(dbItemNode);
-
 				if (dbItemNode.Name == "a") //database attribute
 				{
-					string attrib = databaseNode.Name + "_" + dbItemNode.Attributes[0].Value;
-					attribs.Add(attrib);
+					string attribKey = databaseNode.Name + "_" + dbItemNode.Attributes["attribname"].Value;
+					var itemAttribInfo = new Dictionary<string, string>();
+					foreach (XmlNode attribute in dbItemNode.Attributes)
+					{
+						itemAttribInfo[attribute.Name] =attribute.Value;
+					}
+
+					attribs[attribKey] = itemAttribInfo;
+					if (itemAttribInfo.ContainsKey("header"))
+					{
+						excelNametoXmlName[itemAttribInfo["header"]] = attribKey;
+						xmlNametoExcelName[attribKey] = itemAttribInfo["header"];
+						loadDataBaseAttributes.Add(itemAttribInfo["header"]);
+					}
 
 				}
 				if (dbItemNode.Name == "cat") // represents a catterory
 				{
-					dataBaseAttributes["d_id"] = attribs;
-					List<string> cat_attribs = new List<string>();
 					foreach (XmlNode catChild in dbItemNode.ChildNodes.Cast<XmlNode>().Where(x => x.Name == "a"))
 					{
-						cat_attribs.Add(dbItemNode.Name + "_" + catChild.Attributes[0].Value);
+
+						var itemAttribInfo = new Dictionary<string, string>();
+						string attribKey = dbItemNode.Name + "_" + catChild.Attributes["attribname"].Value;
+						foreach (XmlAttribute attrib in catChild.Attributes)
+						{
+							itemAttribInfo[attrib.Name] = attrib.Value;
+						}
+						attribs[attribKey] = itemAttribInfo;
+						if (itemAttribInfo.ContainsKey("header"))
+						{ 
+							excelNametoXmlName[itemAttribInfo["header"]] = attribKey;
+							xmlNametoExcelName[attribKey] = itemAttribInfo["header"];
+						}
+						if (itemAttribInfo.ContainsKey("header"))
+							loadCatAttributes.Add(itemAttribInfo["header"]);
+
 					}
-					catAttributes["c_id"] = cat_attribs;
+
 					foreach (XmlNode catChild in dbItemNode.ChildNodes.Cast<XmlNode>().Where(x => x.Name == "s_cat"))
 					{
-
-						List<string> subCatAttribs = new List<string>();
 						foreach (XmlNode subCatChild in catChild.ChildNodes.Cast<XmlNode>().Where(x => x.Name == "a"))
 						{
-
-							subCatAttribs.Add(catChild.Name + "_" + subCatChild.Attributes[0].Value);
+							string attribKey = catChild.Name + "_" + subCatChild.Attributes["attribname"].Value;
+							var itemAttribInfo = new Dictionary<string, string>();
+							foreach (XmlAttribute attrib in subCatChild.Attributes)
+							{
+								itemAttribInfo[attrib.Name] = attrib.Value;
+							}
+							attribs[attribKey] = itemAttribInfo;
+							if (itemAttribInfo.ContainsKey("header"))
+							{ 
+								excelNametoXmlName[itemAttribInfo["header"]] = attribKey;
+								xmlNametoExcelName[attribKey] = itemAttribInfo["header"];
+								loadScatAttributes.Add(itemAttribInfo["header"]);
+							}
 						}
 
-						scatAttributes["scat_id"] = subCatAttribs;
 						foreach (XmlNode subCatChild in catChild.ChildNodes.Cast<XmlNode>().Where(x => x.Name == "i"))
 						{
-							List<string> itemAttribs = new List<string>();
+
 							foreach (XmlNode itemNode in subCatChild.ChildNodes.Cast<XmlNode>()
 								.Where(x => x.Name == "a"))
 							{
-								itemAttribs.Add(subCatChild.Name + "_" + itemNode.Attributes[0].Value);
+								string attribKey = subCatChild.Name + "_" + itemNode.Attributes["attribname"].Value;
+								var itemAttribInfo = new Dictionary<string, string>();
+								foreach (XmlAttribute attrib in itemNode.Attributes)
+								{
+									itemAttribInfo[attrib.Name] = attrib.Value;
+								}
+								attribs[attribKey] = itemAttribInfo;
+								if (itemAttribInfo.ContainsKey("header"))
+								{
+									excelNametoXmlName[itemAttribInfo["header"]] = attribKey;
+									xmlNametoExcelName[attribKey] = itemAttribInfo["header"];
+									loadItemsAttributes.Add(itemAttribInfo["header"]);
+								}
 							}
 
-							itemsAttributes["i_id"] = itemAttribs;
 							foreach (XmlNode itemNode in subCatChild.ChildNodes.Cast<XmlNode>()
 								.Where(x => x.Name == "in"))
 							{
-								List<string> inputParams = new List<string>();
 								foreach (XmlNode inParamNode in itemNode.ChildNodes)
 								{
 									if (inParamNode.Name == "kval")
 									{
-										inputParams.Add(
-											itemNode.Name + "_" + inParamNode.Attributes[0].Value);
-
+										string attribKey = subCatChild.Name + "_" + inParamNode.Attributes["name"].Value;
+										var itemAttribInfo = new Dictionary<string, string>();
+										foreach (XmlAttribute attrib in inParamNode.Attributes)
+										{
+											itemAttribInfo[attrib.Name] = attrib.Value;
+										}
+										attribs[itemNode.Name + "_" + itemAttribInfo["name"]] = itemAttribInfo;
+										if (itemAttribInfo.ContainsKey("header"))
+										{
+											excelNametoXmlName[itemAttribInfo["header"]] = attribKey;
+											xmlNametoExcelName[attribKey] = itemAttribInfo["header"];
+											loadItemsInParams.Add(itemAttribInfo["header"]);
+										}
 									}
 									// now have all defined columns
-									var cols = GetFields(attribs, cat_attribs,
-										subCatAttribs, itemAttribs, inputParams);
-									// are there are dups
-									var dups = cols.GroupBy(x => x).Where(x => x.Count() > 1)
-										.Select(x => x.Key);
-									if (dups.Count() != 0)
-									{
-										throw new Exception("There are duplicated Fields.");
+									//var cols = GetFields(attribs, cat_attribs,
+									//	subCatAttribs, itemAttribs, inputParams);
+									//// are there are dups
+									//var dups = cols.GroupBy(x => x).Where(x => x.Count() > 1)
+									//	.Select(x => x.Key);
+									//if (dups.Count() != 0)
+									//{
+									//	throw new Exception("There are duplicated Fields.");
 
-									}
+									//}
 
-									this.cols = cols;
+
 								}
 
-								itemsInParams["i_id"] = inputParams;
+
+//itemsInParams["i_id"] = inputParams;
 							}
 
 						}
@@ -224,6 +283,14 @@ namespace MetaDataEditor
 				}
 
 			}
+			this.cols = attribs;
+			ExcelNametoXmlName = excelNametoXmlName;
+			itemsAttributes = loadItemsAttributes;
+			itemsInParams = loadItemsInParams;
+			dataBaseAttributes = loadDataBaseAttributes;
+			catAttributes = loadCatAttributes;
+			scatAttributes = loadScatAttributes;
+			XmlNametoExcelName = xmlNametoExcelName;
 		}
 
 		private List<string> GetFields(List<string> databases, List<string> categories,
@@ -266,12 +333,48 @@ namespace MetaDataEditor
 		}
 
 
-		public DataTable ToDataTableStructure(List<string> fields)
+		public DataTable ToDataTableStructure(Dictionary<string, Dictionary<string, string>> fields)
 		{
 			var dt = new DataTable();
-			foreach (var fieldname in fields)
-				dt.Columns.Add(fieldname, typeof(string));
+			var lcs = new Dictionary<string, LayoutColumn>();
+			foreach (var kvpair in fields)
+			{
+				var lc = new LayoutColumn();
+				lc.id = kvpair.Key;
+				dt.Columns.Add(kvpair.Key, typeof(string));
+				if (kvpair.Value.ContainsKey("header"))
+				{
+					dt.Columns[kvpair.Key].Caption = kvpair.Value["header"];
+					lc.header = kvpair.Value["header"];
+				}
+				else
+				{
+					lc.header = kvpair.Key;
+				}
 
+				if (kvpair.Value.ContainsKey("visible"))
+				{
+					lc.visible = Boolean.Parse(kvpair.Value["visible"]);
+					//dt.Columns[kvpair.Key].
+				}
+				else
+				{
+					lc.visible = false;
+				}
+
+				if (kvpair.Value.ContainsKey("width"))
+				{
+					lc.width = Int32.Parse(kvpair.Value["width"]);
+				}
+				else
+				{
+					lc.width = 60;
+				}
+
+				lcs[kvpair.Key] = lc;
+			}
+
+			layoutColumns = lcs;
 
 			return dt;
 		}

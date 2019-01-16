@@ -37,7 +37,14 @@ namespace MetaDataEditor
 				// or sort by db, cat, sub
 
 				DataView dv = metaDataTable.DefaultView;
-				dv.Sort = "d_id, cat_id, s_cat_id, i_id";
+				//dv.Sort = "d_id, cat_id, s_cat_id, i_id";
+
+				String dbIdCol = metaMetaData.GetMetaExcelName("d_id");
+				String catIdCol= metaMetaData.GetMetaExcelName("cat_id");
+				String subCatIdCol = metaMetaData.GetMetaExcelName("s_cat_id");
+				String itemIdCol = metaMetaData.GetMetaExcelName("i_id");
+
+				dv.Sort = dbIdCol + ", " + catIdCol + ", " + subCatIdCol + ", " + itemIdCol;
 
 				indentLevel = 0;
 				string currentDb = "", currentCat = "", currentSubCat = "";
@@ -47,15 +54,15 @@ namespace MetaDataEditor
 					//				"-->" + Environment.NewLine);
 					//outStream.Flush();
 
-					if (currentDb != (string) row["d_id"]) // write the complete database
+					if (currentDb != (string) row[dbIdCol]) // write the complete database
 					{
-						currentDb = (string) row["d_id"];
+						currentDb = (string) row[dbIdCol];
 						//write the database node
 
 						outStream.Write(BeginDatabaseNode(row));
 					}
 
-					if (currentCat != (string) row["cat_id"])
+					if (currentCat != (string) row[catIdCol])
 					{
 						if (!string.IsNullOrEmpty(currentCat))
 						{
@@ -63,20 +70,19 @@ namespace MetaDataEditor
 
 						}
 
-						currentCat = (string) row["cat_id"];
+						currentCat = (string) row[catIdCol];
 						//write the complete category
 						outStream.Write(BeginCategoryNode(row));
 
 					}
 
-					if (currentSubCat != (string) row["s_cat_id"]) // write the complete contents of the sub cat
+					if (currentSubCat != (string) row[subCatIdCol]) // write the complete contents of the sub cat
 					{
 						string prevSubCat = currentSubCat;
 
-						if (!row.IsNull("s_cat_id")  )
+						if (!row.IsNull(subCatIdCol)  )
 						{
-						
-							currentSubCat = (string) row["s_cat_id"];
+							currentSubCat = (string) row[subCatIdCol];
 						}
 
 						if (prevSubCat != currentSubCat && !string.IsNullOrEmpty(prevSubCat))
@@ -98,7 +104,7 @@ namespace MetaDataEditor
 				outStream.Write(EndCategoryNode());
 				outStream.Write(EndDatabaseNode());
 			}
-
+			
 		}
 
 
@@ -109,9 +115,13 @@ namespace MetaDataEditor
 				sb.AppendFormat("\t");
 			indentLevel++;
 			sb.AppendFormat("<d ");
-			foreach (string fld in metaMetaData.DataBaseAttributes["d_id"])
+			foreach (string fld in metaMetaData.DataBaseAttributes)
 			{
-				sb.AppendFormat("{0}=\"{1}\" ", fld.Replace("d_", "").Replace("__", ":"), row[fld]);
+				//sb.AppendFormat("{0}=\"{1}\" ", fld.Replace("d_", "").Replace("__", ":"), row[fld]);
+				if ( row.Table.Columns.Contains(fld))
+					sb.AppendFormat("{0}=\"{1}\" ", metaMetaData.GetMetaXmlName(fld).Replace("d_",""), row[fld]);
+				else
+					sb.AppendFormat("{0}=\"\" ", metaMetaData.GetMetaXmlName(fld));
 			}
 
 			sb.AppendFormat(">" + Environment.NewLine);
@@ -131,9 +141,16 @@ namespace MetaDataEditor
 				sb.AppendFormat("\t");
 			indentLevel++;
 			sb.AppendFormat("<c ");
-			foreach (string fld in metaMetaData.CatAttributes["c_id"])
+			foreach (string fld in metaMetaData.CatAttributes)
 			{
-				sb.AppendFormat("{0}=\"{1}\" ", fld.Replace("c_", ""), row[fld]);
+				if (row.Table.Columns.Contains(fld))
+				{
+					sb.AppendFormat("{0}=\"{1}\" ", metaMetaData.GetMetaXmlName(fld).Replace("cat_", ""), row[fld]);
+				}
+				else
+				{
+					sb.AppendFormat("{0}=\"\" ", metaMetaData.GetMetaXmlName(fld).Replace("cat_", ""));
+				}
 			}
 
 			sb.AppendFormat(">" + Environment.NewLine);
@@ -150,10 +167,19 @@ namespace MetaDataEditor
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < indentLevel; i++)
 				sb.AppendFormat("\t");
+			indentLevel++;
 			sb.AppendFormat("<c ");
-			foreach (string fld in metaMetaData.ScatAttributes["scat_id"])
+			foreach (string fld in metaMetaData.ScatAttributes)
 			{
-				sb.AppendFormat("{0}=\"{1}\" ", fld.Replace("scat_", ""), row[fld]);
+
+				if (row.Table.Columns.Contains(fld))
+				{
+					sb.AppendFormat("{0}=\"{1}\" ", metaMetaData.GetMetaXmlName(fld).Replace("s_cat_", ""), row[fld]);
+				}
+				else
+				{
+					sb.AppendFormat("{0}=\"\" ", metaMetaData.GetMetaXmlName(fld).Replace("s_cat_", ""));
+				}
 			}
 
 			sb.AppendFormat(">" + Environment.NewLine);
@@ -179,26 +205,30 @@ namespace MetaDataEditor
 				sb.AppendFormat("\t");
 
 			sb.AppendFormat("<i ");
-			foreach (string itm in metaMetaData.ItemsAttributes["i_id"])
+			foreach (string itm in metaMetaData.ItemsAttributes)
 			{
-				if (! row.IsNull(itm))
-					sb.AppendFormat("{0}=\"{1}\" ", itm.Replace("i_", ""), row[itm]);
+				if (row.Table.Columns.Contains(itm) && !row.IsNull(itm) )
+					sb.AppendFormat("{0}=\"{1}\" ", metaMetaData.GetMetaXmlName(itm).Replace("i_",""), row[itm]);
+				else
+				{
+					sb.AppendFormat("{0}=\"\" ", metaMetaData.GetMetaXmlName(itm).Replace("i_", ""));
+				}
 			}
 			sb.AppendFormat(">" + Environment.NewLine);
 
-			foreach (string inParam in metaMetaData.ItemsInParams["i_id"])
-			{
-				for (int i = 0; i < indentLevel; i++)
-					sb.AppendFormat("\t");
-				sb.AppendFormat("\t");
+			//foreach (string inParam in metaMetaData.ItemsInParams["i_id"])
+			//{
+			//	for (int i = 0; i < indentLevel; i++)
+			//		sb.AppendFormat("\t");
+			//	sb.AppendFormat("\t");
 
-				if (!row.IsNull(inParam))
-				{
-					sb.AppendFormat("<in:sp k=\"{0}\">{1}</in:sp>" + Environment.NewLine, inParam.Replace("in_", ""),
-						row[inParam]);
-				}
+			//	if (!row.IsNull(inParam))
+			//	{
+			//		sb.AppendFormat("<in:sp k=\"{0}\">{1}</in:sp>" + Environment.NewLine, inParam.Replace("in_", ""),
+			//			row[inParam]);
+			//	}
 
-			}
+			//}
 			sb.Append(Environment.NewLine);
 
 			return sb.ToString();

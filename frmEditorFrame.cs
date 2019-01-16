@@ -1,56 +1,30 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Dynamic;
 using System.Reflection;
+using System.Data.OleDb;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml;
 
 
 namespace MetaDataEditor
 {
-	public partial class Form1 : Form
+	public partial class frmEditorFrame : Form
 	{
-		private static string WindowTitle = "Datacloud API MetaDataEditor";
-		
-
-		public List<MetaDataGridRow> metaDataRows;
+		private static string WindowTitle = "DataCloud API MetaDataEditor";
 
 		private MetaMetaData metaMetaData;
 		private DataTable metaDT;
 		private Boolean showAll = true;
-		public Form1()
+		public frmEditorFrame()
 		{
 			InitializeComponent();
 		}
 
-		private void button1_Click(object sender, EventArgs e)
-		{
-			//string path = @"C:\Users\u6035303\git\api\api\snapshot\components\snapshotmeta\service\xml\tree_parts\d_adcdls.xml";
-			var workDir = Directory.GetCurrentDirectory();
-			var path = workDir + "..\\..\\..\\Data\\d_adcdls.xml";
-			var metaData = new MetaData(path);
-			metaData.Load();
-			var dt = metaData.ToDataTable(metaData.ToDataTable(metaDT));
-		}
-
-		private void gridControl1_Click(object sender, EventArgs e)
-		{
-
-		}
-
-	
-		private void Load_Click(object sender, EventArgs e)
-		{
-
-		}
-
+		
 
 		private void loadToolStripMenuItem_Click(object sender, EventArgs e)
 		{
@@ -58,7 +32,7 @@ namespace MetaDataEditor
 			var metaPath = workDir + "..\\..\\..\\Data\\MetaMeta.xml";
 			metaMetaData = new MetaMetaData(metaPath);
 
-			metaMetaData.Load();
+			 metaMetaData.Load();
 			metaDT = metaMetaData.ToDataTableStructure(metaMetaData.Cols);
 
 
@@ -67,6 +41,7 @@ namespace MetaDataEditor
 			metaData.Load();
 			var dt = metaData.ToDataTable(metaDT);
 			dataGridView1.DataSource = dt;
+			showAllColsToolStripMenuItem_Click(this, null);
 		}
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
@@ -137,7 +112,7 @@ namespace MetaDataEditor
 				int compRes = 0;
 				foreach (frmSort.SortItem si in sortItems)
 				{
-					compRes = row1.Cells[si.ord].Value.ToString().CompareTo(row2.Cells[si.ord].Value.ToString());
+				//	compRes = row1.Cells[si.ord].Value.ToString().CompareTo(row2.Cells[si.ord].Value.ToString());
 
 				}
 
@@ -149,10 +124,11 @@ namespace MetaDataEditor
 		{
 			var sortForm = new frmSort();
 
-			List<string> colHeaders = new List<string>();
+			var colHeaders = new List<Tuple<string, string, int>>();
+			int i = 0;
 			foreach (DataGridViewColumn col in dataGridView1.Columns)
 			{
-				colHeaders.Add(col.HeaderText);
+				colHeaders.Add(new Tuple<string, string,int>(col.Name, col.HeaderText, i++));
 			}
 
 			sortForm.Populate(colHeaders);
@@ -286,9 +262,11 @@ namespace MetaDataEditor
 		{
 
 			foreach (DataGridViewColumn dgvcol in dataGridView1.Columns)
+			{
+				if (metaMetaData.LayoutColumns.ContainsKey(dgvcol.Name) )
 				{
-
-					if (metaMetaData.LayoutColumns.ContainsKey(dgvcol.Name) && !showAll)
+					dgvcol.HeaderText = metaMetaData.LayoutColumns[dgvcol.Name].header;
+					if (!showAll)
 					{
 						dgvcol.Visible = metaMetaData.LayoutColumns[dgvcol.Name].visible;
 						dgvcol.Width = metaMetaData.LayoutColumns[dgvcol.Name].width;
@@ -298,9 +276,9 @@ namespace MetaDataEditor
 					{
 						dgvcol.Visible = true;
 					}
-
-
 				}
+
+			}
 
 			if (showAll)
 				showAll = false;
@@ -319,10 +297,74 @@ namespace MetaDataEditor
 		
 		private void Form1_Load_1(object sender, EventArgs e)
 		{
-			string fileVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
-			string productVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
+			string assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString();
+			//future use ... ?
+			//string assemblyVersion = Assembly.LoadFile('your assembly file').GetName().Version.ToString();
+			
+			//string fileVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).FileVersion;
+			//string productVersion = FileVersionInfo.GetVersionInfo(Assembly.GetExecutingAssembly().Location).ProductVersion;
+			//this.Name = WindowTitle +" "+ fileVersion;
 
-			this.Name = WindowTitle +" "+ fileVersion;
+
+			this.Text = WindowTitle + " " + assemblyVersion;
+
+		}
+
+		private void importFromExcelToolStripMenuItem_Click(object sender, EventArgs e)
+		{
+			loadMetaToolStripMenuItem_Click(this, null);
+			OpenFileDialog openFileDlgExcel = new OpenFileDialog();
+			openFileDlgExcel.Filter = "excel files (*.xlsx)|*.xlsx|All files (*.*)|*.*";
+			//string connInfo = "Provider=Micrsoft.ACE.OLEDB.12.0;Data Source=";
+			if (openFileDlgExcel.ShowDialog() == DialogResult.OK)
+			{
+				var excelFileName = openFileDlgExcel.FileName;
+				// need to install the runtime access engine
+				//var PathConn = connInfo + excelFileName + ";Extendend Properties=\"Excel 8.0;HDR=Yes;\";";
+				//OleDbConnection conn = new OleDbConnection(PathConn);
+
+				//OleDbDataAdapter excelDataAdapter1 = new OleDbDataAdapter("Select * from [Sheet1$]", conn);
+
+				//DataTable dt = new DataTable();
+
+				//excelDataAdapter1.Fill(dt);
+
+				//dataGridView1.DataSource = dt;
+
+				var wb = new XLWorkbook(excelFileName);
+				var ws = wb.Worksheet("Items");
+				var firstRowUsed = ws.FirstRowUsed();
+
+				var firstPossibleAddress = ws.Row(firstRowUsed.RowNumber()).FirstCell().Address;
+				var lastPossibleAddress = ws.LastCellUsed().Address;
+
+				// Get a range with the remainder of the worksheet data (the range used)
+				var range = ws.Range(firstPossibleAddress, lastPossibleAddress).AsRange(); //.RangeUsed();
+				// Treat the range as a table (to be able to use the column names)
+				var table = range.AsTable();
+				DataTable dt = new DataTable();
+				foreach (IXLTableField col in table.Fields)
+				{
+					dt.Columns.Add(col.Name);
+
+				}
+
+				foreach (IXLTableRow row in table.DataRange.RowsUsed())
+				{
+					var newRow = dt.NewRow();
+					foreach (DataColumn dataColumn in dt.Columns)
+					{
+						newRow[dataColumn.ColumnName] = row.Field(dataColumn.ColumnName).GetString();
+					}
+
+					dt.Rows.Add(newRow);
+				}
+				dataGridView1.DataSource = dt;
+			}
+		}
+
+		private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+		{
 
 		}
 	}
