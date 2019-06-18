@@ -242,5 +242,28 @@ namespace MetaDataEditor
 			sb.Append( "</i>" + Environment.NewLine);
 			return sb.ToString();
 		}
+
+		private string BeginParamNode(DataRow row)
+		{
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < indentLevel; i++)
+				sb.AppendFormat("\t");
+
+			foreach (string inParam in metaMetaData.ItemsInParams)
+			{
+
+				if (row.Table.Columns.Contains(inParam))
+				{
+					sb.AppendFormat("{0}=\"{1}\" ", metaMetaData.GetMetaXmlName(inParam).Replace("in_", ""), row[inParam]);
+				}
+				else
+				{
+					sb.AppendFormat("{0}=\"\" ", metaMetaData.GetMetaXmlName(inParam).Replace("in_", ""));
+				}
+			}
+
+
+			return sb.ToString();
+		}
 	}
 }

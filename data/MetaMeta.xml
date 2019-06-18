@@ -20,16 +20,16 @@
 				<a attribname ="n" header="Name (n)" visible="true" width="120"/>
 				<a attribname="d" header="Description (d)" visible="true" width="120"/>
 				<a attribname="domainEnum" header="domainEnum" visible="true" width="120"/>
-				<a attribname ="l"  header="Label(l)" visible="true" width="120"/>
+				<a attribname ="l"  header="Label (l)" visible="true" width="120"/>
 				<a attribname ="vu" header="Value unit(vu)" visible="true" width="120"/>
-				<a attribname ="pc"  header="Parameter class" visible="true" width="120"/>
-				<a attribname ="cc"  header="Column class(cc)" visible="true" width="120"/>
+				<a attribname ="pc"  header="Parameter class (pc)" visible="true" width="120"/>
+				<a attribname ="cc"  header="Column class (cc)" visible="true" width="120"/>
 				<a attribname ="vp"  header="Value precision" visible="true" width="120"/>
 				<a attribname ="vc"  header="Value column" visible="true" width="120"/>
-				<a attribname ="dt" header="Data type" visible="true" width="120"/>
+				<a attribname ="dt" header="Data type (dt)" visible="true" width="120"/>
 				<a attribname ="fc" header="Function class" visible="true" width="120"/>
-				<a attribname ="s"  header="Handler Source (s)" visible="true" width="120"/>
-				<a attribname ="ss" header="Screener Source (ss)" visible="true" width="120"/>
+				<a attribname ="s"  header="Handler source (s)" visible="true" width="120"/>
+				<a attribname ="ss" header="Screener source (ss)" visible="true" width="120"/>
 				<a attribname ="ssecondary"  visible="true" width="120"/>
 				<a attribname ="isScreen"  visible="true" width="120"/>
 				<a attribname ="universe"  visible="true" width="120"/>
