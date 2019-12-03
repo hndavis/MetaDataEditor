@@ -24,24 +24,74 @@ namespace MetaDataEditor
 			InitializeComponent();
 		}
 
-		
+
 
 		private void loadToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			var workDir = Directory.GetCurrentDirectory();
-			var metaPath = workDir + "..\\..\\..\\Data\\MetaMeta.xml";
-			metaMetaData = new MetaMetaData(metaPath);
+			var currentMetaMeta = Properties.Settings.Default.MetaMeta;
 
-			 metaMetaData.Load();
+			var workDir = Directory.GetCurrentDirectory();
+			var metaPathFile = workDir + "..\\..\\..\\Data\\MetaMeta.xml";
+			if (!File.Exists(metaPathFile))
+			{
+				var metaPath = workDir + "..\\..\\..\\Data";
+				OpenFileDialog openFileDialogMetaDef = new OpenFileDialog()
+				{
+					FileName = "Select a Meta Definiton file MetaMeta.xml",
+					Filter = "Meta Config (*.xml)|*.xml",
+					Title = "Open xml meta definition file",
+					InitialDirectory = metaPath,
+
+				};
+
+				if (openFileDialogMetaDef.ShowDialog() == DialogResult.OK)
+				{
+					metaPathFile = openFileDialogMetaDef.FileName;
+					Properties.Settings.Default.MetaMeta = metaPathFile;
+					Properties.Settings.Default.Save();
+				}
+			}
+			metaMetaData = new MetaMetaData(metaPathFile);
+			
+			metaMetaData.Load();
 			metaDT = metaMetaData.ToDataTableStructure(metaMetaData.Cols);
 
+			var initialMetaDataFle =Properties.Settings.Default.LastMetaData;
+			string initialDataDir="";
+			if (!string.IsNullOrEmpty(Properties.Settings.Default.LastMetaData))
+			{
+				try
+				{
+					initialDataDir = Path.GetDirectoryName(Properties.Settings.Default.LastMetaData);
+				}
+				catch (Exception)
+				{
+					initialDataDir = @"c:\";
+				}
+			}
+			OpenFileDialog openFileDialogMeta = new OpenFileDialog()
+			{
+				FileName = "Select a Meta file xxxxx.xml",
+				Filter = "Meta file (*.xml)|*.xml",
+				Title = "Open xml meta file",
+				InitialDirectory = initialDataDir,
 
-			var path = workDir + "..\\..\\..\\Data\\d_adcdls.xml";
+			};
+
+			string path="";// = workDir + "..\\..\\..\\Data\\d_adcdls.xml";
+			if (openFileDialogMeta.ShowDialog() == DialogResult.OK)
+			{
+				path = openFileDialogMeta.FileName;
+				Properties.Settings.Default.LastMetaData = path;
+				Properties.Settings.Default.Save();
+			
+
 			var metaData = new MetaData(path);
 			metaData.Load();
 			var dt = metaData.ToDataTable(metaDT);
 			dataGridView1.DataSource = dt;
 			showAllColsToolStripMenuItem_Click(this, null);
+			}
 		}
 
 		private void exitToolStripMenuItem_Click(object sender, EventArgs e)
