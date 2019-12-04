@@ -8,5 +8,8 @@
     <Setting Name="LastMetaData" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="ConnectionString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">mongodb+srv://&lt;userName&gt;:&lt;password&gt;@cluster0-1a1jl.mongodb.net/test?retryWrites=true&amp;w=majority</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
